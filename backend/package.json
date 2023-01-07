@@ -4,11 +4,13 @@
   "description": "Este desafio tem como objetivo te avaliar como desenvolvedor Back-end;",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/index.js"
   },
   "author": "Gregorio Santos",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.2.2",
     "express": "^4.18.2"
   }
 }
