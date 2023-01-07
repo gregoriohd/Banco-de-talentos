@@ -9,4 +9,7 @@ const rotas = express();
 rotas.get('/currency', obterCotacoes);
 rotas.get('/currency/:codigo', obterCotacaoPorCodigo);
 
+//products
+
+
 module.exports = rotas;
