@@ -2,7 +2,19 @@ const knex = require('../config/db/conexao');
 const axios = require('axios');
 
 const obterProdutos = async (req, res)=>{
+    const {id} = req.params;
     try{
+
+        if(id){
+           
+            const produto = await knex('produtos').where({ id }).first();
+
+            if (!produto) {
+                return res.status(404).json({ mensagem: "Não existe produto com o id informado" });
+            }
+
+            return res.status(200).json(produto);
+        }
        
          const produtos = await knex.select('*').from('produtos');
 
@@ -49,6 +61,24 @@ const obterProdutos = async (req, res)=>{
     }
 }
 
+const cadastrarProduto = async (req, res) => {
+    const { nome, quantidade, descricao, valor } = req.body;
+
+    try {
+      
+        const produto = await knex('produtos').insert({nome, quantidade, descricao, valor}).returning('*');;
+
+        if (!produto) {
+            return res.status(400).json('O produto não foi cadastrado');
+        }
+
+        return res.status(201).json(produto);
+    } catch (err) {
+        return res.status(404).json({mensagem: err.menssage})
+    }
+}
+
 module.exports = {
-    obterProdutos
+    obterProdutos, 
+    cadastrarProduto
 }
